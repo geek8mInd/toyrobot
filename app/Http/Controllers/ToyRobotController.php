@@ -24,16 +24,22 @@ class ToyRobotController extends Controller
     public function play(ToyRobotRequest $request)
     {
         $toyRobot     = $request->validated();
-        //@toDo 
-        // save the validated request
-        // validate the robot_action (initial: place before any command)
-        // calculate the most recent coordinates after taking the series of command
-
-        $toyRobotPlay = new ToyRobot([], $toyRobot['xaxis'], $toyRobot['yaxis'], $toyRobot['direction']);
+        $toyRobotPlay = new ToyRobot($toyRobot['robot_action'], $toyRobot['xaxis'], $toyRobot['yaxis'], $toyRobot['direction']);
+        $xaxis           = $toyRobot['xaxis'];
+        $yaxis           = $toyRobot['yaxis'];
+        $direction       = $toyRobot['direction'];
+        $actions         = implode(",", $toyRobot['robot_action']);
         $current         = implode(",", [$toyRobot['xaxis'], $toyRobot['yaxis']]);
         $coordinatesList = $toyRobotPlay->getCoordinatesFamily();
         krsort($coordinatesList);
 
-        return view('play', compact(['coordinatesList', 'current']));
+        return view('play', compact([
+            'coordinatesList',
+            'current',
+            'actions',
+            'direction',
+            'xaxis',
+            'yaxis'
+        ]));
     }
 }

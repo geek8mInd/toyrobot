@@ -9,24 +9,20 @@
         <!-- Fonts -->
         <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
         <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-        <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
     </head>
     <body>
         <div class="float-container">
             <span class="game-header"><p><h1>Toy Robot Simulator</h1></p></span>
             <div class="float-child-robotcompass">
             <div class="container">
-              <form method="POST" action="{{ route('play') }}">
+              <form method="POST" action="{{ route('/') }}">
                 @csrf
                 <div class="row">
                   <div class="col-25">
                     <label for="xaxis">X-Axis :</label>
                   </div>
                   <div class="col-75">
-                    <input type="text" id="xaxis" name="xaxis" placeholder="X-axis.." value="{{ old('xaxis') }}">
-                    @if ($errors->has('xaxis'))
-                        <span class="text-danger text-left">{{ $errors->first('xaxis') }}</span>
-                    @endif
+                    <input type="text" id="xaxis" name="xaxis" placeholder="X-axis.." value="{{ $xaxis }}" disabled>
                   </div>
                 </div>
                 <div class="row">
@@ -34,10 +30,7 @@
                     <label for="yaxis">Y-Axis :</label>
                   </div>
                   <div class="col-75">
-                    <input type="text" id="yaxis" name="yaxis" placeholder="Y-axis.." value="{{ old('yaxis') }}">
-                    @if ($errors->has('yaxis'))
-                        <span class="text-danger text-left">{{ $errors->first('yaxis') }}</span>
-                    @endif
+                    <input type="text" id="yaxis" name="yaxis" placeholder="Y-axis.." value="{{ $yaxis }}" disabled>
                   </div>
                 </div>
                 <div class="row">
@@ -45,12 +38,7 @@
                     <label for="direction">Facing Direction:</label>
                   </div>
                   <div class="col-75">
-                    <select id="direction" name="direction">
-                      <option value="north">North</option>
-                      <option value="south">South</option>
-                      <option value="east">East</option>
-                      <option value="west">West</option>
-                    </select>
+                    <input type="text" id="direction" name="direction" placeholder="Direction.." value="{{ $direction }}" disabled>
                   </div>
                 </div>
                 <div class="row">
@@ -58,18 +46,11 @@
                     <label for="robot_action">Robot Action(s):</label>
                   </div>
                   <div class="col-75">
-                    <div class="field_wrapper">
-                      <input type="text" name="robot_action[]" value="" placeholder="(move, left, right)" />
-                      <a href="javascript:void(0);" class="add_button" title="Add field">+ Add Robot Action</a>
-                      @if ($errors->has('robot_action'))
-                        <span class="text-danger text-left">{{ $errors->first('robot_action') }}</span>
-                      @endif
-
-                    </div>
+                    <input type="text" id="actions" name="actions" placeholder="Actions.." value="{{ $actions }}" disabled>
                   </div>
                 </div>
                 <div class="row">
-                  <input type="submit" value="Play Robot">
+                  <input type="submit" value="Play Again">
                 </div>
               </form>
             </div>
@@ -86,25 +67,3 @@
         </div>
     </body>
 </html>
-<script type="text/javascript">
-$(document).ready(function(){
-    var maxField = 5;
-    var addButton = $('.add_button');
-    var wrapper = $('.field_wrapper');
-    var fieldHTML = '<div><input type="text" name="robot_action[]" value="" placeholder="(move, left, right)"/><a href="javascript:void(0);" class="remove_button">- Remove Robot Action</a></div>';
-    var x = 1; 
-    
-    $(addButton).click(function(){
-        if(x < maxField){ 
-            x++;
-            $(wrapper).append(fieldHTML); 
-        }
-    });
-    
-    $(wrapper).on('click', '.remove_button', function(e){
-        e.preventDefault();
-        $(this).parent('div').remove();
-        x--;
-    });
-});
-</script>
