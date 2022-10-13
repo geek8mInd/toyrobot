@@ -63,6 +63,9 @@
                         @endforeach
                     </div>
                 </div>
+                <div class="row">
+                  <p>{{ $remarks }}</p>
+                </div>
           </div>
         </div>
     </body>

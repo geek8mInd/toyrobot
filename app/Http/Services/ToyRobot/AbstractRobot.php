@@ -74,5 +74,30 @@ abstract class AbstractRobot implements AbstractRobotInterface
 			'y' => $yAxis,
 			'f' => $direction
 		];
+	}
+
+	public function setXAxis($xAxis)
+	{
+		return $this->xAxis = $xAxis;
+	}
+
+	public function setYAxis($yAxis)
+	{
+		return $this->yAxis = $yAxis;
+	}
+
+	public function getXAxis()
+	{
+		return $this->xAxis;
+	}
+
+	public function getYAxis()
+	{
+		return $this->yAxis;
+	}
+
+	public function getDirection()
+	{
+		return $this->direction;
 	}	
 }

@@ -10,6 +10,7 @@ class ToyRobot extends AbstractRobot {
 	use ToyRobotTrait;
 
 	private $coordinatesFamily = array();
+	public $isValidPosition = false;
 
 	public function __construct($actions, $x, $y, $d)
 	{
@@ -20,12 +21,16 @@ class ToyRobot extends AbstractRobot {
 	protected function operateRobot(array $actions)
 	{
 		$this->robotSeriesOfActions = $actions;
+
 		foreach($actions as $action){
 			if (in_array($action, $this->allowedRobotActions)){
 				if ($action == self::$robotAction) {
 					if ($this->checkIsPositionValid()) {
+						$this->setIsValidPosition();
 						$this->$action();
 					} else {
+						$this->setXAxis(self::$xDefaultXAxis);
+						$this->setYAxis(self::$yDefaultYAxis);
 						$this->setCoordinates(self::$xDefaultXAxis, self::$yDefaultYAxis, $this->direction);
 					}
 				} else {
@@ -57,5 +62,10 @@ class ToyRobot extends AbstractRobot {
 			$this->xAxis,
 			$this->yAxis
 		]), $this->coordinatesFamily);
+	}
+
+	protected function setIsValidPosition()
+	{
+		return $this->isValidPosition = true;
 	}
 }

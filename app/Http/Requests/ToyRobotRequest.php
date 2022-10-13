@@ -27,7 +27,7 @@ class ToyRobotRequest extends FormRequest
             'xaxis'          => 'required|integer|between:0,4',
             'yaxis'          => 'required|integer|between:0,4',
             'direction'      => 'required|string',
-            'robot_action.*' => 'required|string',
+            'robot_action.*' => 'required|string|in:move,left,right',
         ];
     }
 }

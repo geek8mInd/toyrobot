@@ -14,4 +14,7 @@ trait ToyRobotTrait
 	static $xDefaultXAxis			 = 0;
 	static $yDefaultYAxis			 = 0;
 	static $robotAction              = 'move';
+
+	static $robotSuccessMsg			 = 'Nice game, robot is in good shape!';
+	static $robotNoMoveMsg			 = 'Ooops, robot cannot move. Kindly redefine your inputs.';
 }

@@ -24,12 +24,17 @@ class ToyRobotController extends Controller
     {
         $toyRobot     = $request->validated();
         $toyRobotPlay = new ToyRobot($toyRobot['robot_action'], $toyRobot['xaxis'], $toyRobot['yaxis'], $toyRobot['direction']);
-        $xaxis           = $toyRobot['xaxis'];
-        $yaxis           = $toyRobot['yaxis'];
-        $direction       = $toyRobot['direction'];
+        $xaxis           = $toyRobotPlay->getXAxis();
+        $yaxis           = $toyRobotPlay->getYAxis();
+        $direction       = $toyRobotPlay->getDirection();
         $actions         = implode(",", $toyRobot['robot_action']);
-        $current         = implode(",", [$toyRobot['xaxis'], $toyRobot['yaxis']]);
+        $current         = ($toyRobotPlay->isValidPosition) 
+                         ? implode(",", [$xaxis, $yaxis])
+                         : implode(",", [self::$xDefaultXAxis, self::$yDefaultYAxis]);
         $coordinatesList = $toyRobotPlay->getCoordinatesFamily();
+        $remarks         = ($toyRobotPlay->isValidPosition == true) 
+                         ? self::$robotSuccessMsg
+                         : self::$robotNoMoveMsg;
 
         return view('play', compact([
             'coordinatesList',
@@ -37,7 +42,8 @@ class ToyRobotController extends Controller
             'actions',
             'direction',
             'xaxis',
-            'yaxis'
+            'yaxis',
+            'remarks'
         ]));
     }
 }
