@@ -101,3 +101,7 @@ div.cell {
 .text-danger {
     color: darkred;
 }
+.text-info {
+    color: #dfdfdf;
+    font-size: 10px;
+}

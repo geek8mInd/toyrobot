@@ -16,7 +16,6 @@ class ToyRobotController extends Controller
         $toyRobot1 = new ToyRobot([], self::$xDefaultXAxis, self::$yDefaultYAxis, 'south');
         $current         = implode(",", [self::$xDefaultXAxis, self::$yDefaultYAxis]);
         $coordinatesList = $toyRobot1->getCoordinatesFamily();
-        krsort($coordinatesList);
 
         return view('index', compact(['coordinatesList', 'current']));
     }
@@ -31,7 +30,6 @@ class ToyRobotController extends Controller
         $actions         = implode(",", $toyRobot['robot_action']);
         $current         = implode(",", [$toyRobot['xaxis'], $toyRobot['yaxis']]);
         $coordinatesList = $toyRobotPlay->getCoordinatesFamily();
-        krsort($coordinatesList);
 
         return view('play', compact([
             'coordinatesList',
